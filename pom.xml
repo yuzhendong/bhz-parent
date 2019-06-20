@@ -48,7 +48,7 @@
   </pluginRepositories>
   -->
   <!-- 配置发布到私服 -->
-  <distributionManagement>
+<!--   <distributionManagement>
 		<repository>
 			<id>nexus-releases</id>
 			<name>Nexus Release Repository</name>
@@ -59,7 +59,8 @@
 			<name>Nexus Snapshot Repository</name>
 			<url>http://localhost:8081/repository/maven-snapshots/</url>
 		</snapshotRepository>
-  </distributionManagement>     
+  </distributionManagement>    --> 
+
   <properties>
   	<!-- base -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -459,6 +460,9 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
             <version>2.4</version>
+            <configuration>
+  				<failOnMissingWebXml>false</failOnMissingWebXml>
+  			</configuration> 
         </plugin>
 		<!--自动打包发布插件 -->
 		<!--
@@ -471,7 +475,7 @@
 		</plugin>
 		-->
 		<!-- 解解决maven update project 后版本降低为1.5的bug -->
-        <plugin>
+<!--         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>2.1</version>
@@ -479,7 +483,7 @@
                 <source>1.7</source>
                 <target>1.7</target>
             </configuration>
-        </plugin>
+        </plugin> -->
 		<!-- 单元测试 -->
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -491,20 +495,31 @@
 				</includes>
 			</configuration>
 		</plugin>
-    	<plugin>
+<!--     	<plugin>
     		<groupId>org.apache.maven.plugins</groupId>
     		<artifactId>maven-source-plugin</artifactId>
     		<version>2.1.2</version>
+    		<configuration>
+    		<attach>true</attach>
+    		</configuration>
     		<executions>
-    			<!-- 绑定到特定的生命周期之后，运行maven-source-pluin 运行目标为jar-no-fork -->
+    			绑定到特定的生命周期之后，运行maven-source-pluin 运行目标为jar-no-fork
 				<execution>
+				<id>attach-sources</id>
 					<phase>package</phase>
 					<goals>
-						<goal>jar-no-fork</goal>
+						<goal>jar</goal>
 					</goals>
 				</execution>
 			</executions>
-    	</plugin>	
+    	</plugin>	 -->
     </plugins>    
   </build>
+<distributionManagement> 
+	<repository> 
+	<id>nexus-snapshots</id> 
+	<name>nexus snapshots repository</name> 
+	<url>http://localhost:8081/repository/maven-snapshots/</url> 
+	</repository> 
+</distributionManagement>  
 </project>
